@@ -10,15 +10,15 @@ async function getAllMovies() {
 function asMovieListItem(movie) {
     // Hier definieren wir, welche Daten für jeden Film zurückgegeben werden sollen
     // Überprüfe und sichere das Poster
-    let securePoster = movie.poster && movie.poster.startsWith('http://')
-        ? movie.poster.replace('http://', 'https://')
-        : movie.poster;
+    // let securePoster = movie.poster && movie.poster.startsWith('http://')
+    //     ? movie.poster.replace('http://', 'https://')
+    //     : movie.poster;// Eine Überlegung, aber um die Performance zu verbessern, werde ich im Frontend statisch http durch https ersetzen und einen onerror setzen, um fehlende Bilder zu behandeln.
 
     return {
         id: movie._id,
         title: movie.title,
         genres: movie.genres, // Angenommen, genres ist ein Array von Strings
-        poster: securePoster, // URL zum Poster des Films
+        poster: movie.poster, // URL zum Poster des Films
         runtime: movie.runtime, // Länge des Films in Minuten
         rating: movie.imdb.rating // Die IMDb-Bewertung des Films
     };
