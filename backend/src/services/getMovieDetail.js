@@ -1,5 +1,4 @@
 const { Movies } = require('../models/index');
-const mongoose = require('mongoose');
 
 async function getMovieDetails(movieId) {
     const foundMovie = await Movies.findById(movieId);

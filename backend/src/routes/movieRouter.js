@@ -1,5 +1,6 @@
 const express = require('express');
 const MovieService = require('../services/index.js');
+const upload = require('../middleware/multerConfig.js');
 
 const movieRouter = express.Router();
 
@@ -26,19 +27,27 @@ movieRouter.get("/:movieId", async function getOneMovieWithDetailsCtrl(req, res)
     }
 })
 
-movieRouter.post("/", express.json(), async function postAddNewMovieCtrl(req, res) {
+movieRouter.post("/", express.json(), upload.single("poster"), async function postAddNewMovieCtrl(req, res) {
     try {
         const movieInfo = req.body;
+
+        // Wenn ein Bild hochgeladen wurde, füge den Pfad zum movieInfo hinzu
+        if (req.file) {
+            movieInfo.poster = req.file.path; // Der Pfad des hochgeladenen Bildes
+        }
+
+        // Rufe die addMovie-Funktion mit den Film- und Bildinformationen auf
         const result = await MovieService.addMovie(movieInfo);
-        res.status(201).json({ succes: true, result });
+
+        res.status(201).json({ success: true, result });
     } catch (err) {
         res.status(500).json({
-            succes: false,
+            success: false,
             err,
             message: err.message
         })
     }
-})
+});
 
 movieRouter.patch("/:movieId", express.json(), async function patchMovieByIdCtrl(req, res) {
     try {

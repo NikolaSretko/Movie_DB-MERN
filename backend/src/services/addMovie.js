@@ -1,7 +1,10 @@
-const { Movies } = require('../models/index.js')
+const { Movies } = require('../models/index');
 
 async function addMovie(movieInfo) {
-    return Movies.create(movieInfo);
+    const newMovie = new Movies(movieInfo);
+    await newMovie.save();
+
+    return newMovie;
 }
 
 module.exports = addMovie

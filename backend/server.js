@@ -3,6 +3,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const { movieRouter } = require('./src/routes/index');
+const { favoriteRouter } = require('./src/routes/favoriteRouter');
 
 
 
@@ -10,12 +11,14 @@ const app = express();
 app.use(cors())
 app.use(morgan('dev'))
 
-app.use("download", express.static("data/images"))
+app.use("/download", express.static("upload"))
 
 app.use("/api/v1/movies", movieRouter);
+app.use("/api/v1/favorites", favoriteRouter);
+
 
 const serverListenToPort = () =>
-    app.listen(3000, () => console.log("Server listening on port", 3000));
+    app.listen(3001, () => console.log("Server listening on port", 3001));
 
 // server and database connection setup
 console.log("Connecting to database...");
