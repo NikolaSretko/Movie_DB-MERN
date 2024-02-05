@@ -6,6 +6,7 @@ const updatedMovieById = require('./updateMovie.js')
 const addFavorite = require('./addFavorite.js')
 const getAllFavorites = require('./getaAllFavorite.js')
 const removeFavorite = require('./removeFavorite.js')
+const searchMovie = require('./searchMovie.js')
 
 const MovieService = {
     getAllMovies,
@@ -16,6 +17,7 @@ const MovieService = {
     addFavorite,
     getAllFavorites,
     removeFavorite,
+    searchMovie
 };
 
 module.exports = MovieService;
